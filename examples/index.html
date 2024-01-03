@@ -9,7 +9,7 @@
 		var logoImage = new Image()
 		logoImage.src = '../images/logo.png'
 
-		function showIntro () {
+		window.onload = function () {	
 			var canvas = document.getElementById('game');
 
 			// Force canvas to dynamically change its size to
@@ -18,50 +18,96 @@
 			canvas.height = document.body.clientHeight
 
 			var c = canvas.getContext('2d')
+			
+			var State = {
+				_current: 0,
+				INTRO: 0, 
+				LOADING: 1,
+				LOADED: 2
+			}
+			
+			window.addEventListener('click', handleClick, false)
+			window.addEventListener('resize', doResize, false)
 
-			var phrase = 'Click or tap the screen to start the game'
+			doResize()
+			
+			function handleClick () {
+				State._current = State.LOADING
+				fadeToWhite()
+			}			
 
-			// Clear the canvas 
-			c.clearRect(0,0, canvas.width, canvas.height)
+			function doResize () {
+				canvas.width = document.body.clientWidth
+				canvas.height = document.body.clientHeight
 
-			// Make a nice blue gradient
-			var grd = c.createLinearGradient(0, canvas.height, canvas.width, 0)
-			grd.addColorStop(0, '#ceefff')
-			grd.addColorStop(1, '#52bcff')
-
-			c.fillStyle = grd
-			c.fillRect(0,0, canvas.width, canvas.height)
-
-			// Store the original width value so that we can keep 
-			// the same width/height ratio later
-			var originalWidth = logoImage.width
-
-			// Compute the new width and height values
-			logoImage.width = Math.round((50 * document.body.clientWidth) / 100)
-			logoImage.height = Math.round((logoImage.width * logoImage.height) / originalWidth)
-
-			// Create an small utility object
-			var logo = {
-				img: logoImage,
-				x: (canvas.width / 2) - (logoImage.width / 2),
-				y: (canvas.height / 2) - (logoImage.height / 2)
+				switch (State._current) {
+					case State.INTRO:
+						showIntro()
+						break
+				}
 			}
 
-			// Present the image
-			c.drawImage(logo.img, logo.x, logo.y, logo.img.width, logo.img.height)
+			function fadeToWhite (alphaVal) {
+				// If the function hasn't received any parameters, start with 0.02
+				var alphaVal = (alphaVal == undefined) ? 0.02 : parseFloat(alphaVal) + 0.02
 
-			// Change the color to black
-			c.fillStyle = '#000000'
-			c.font = 'bold 16px Arial, sans-serif'
+				// Set the color to white
+				c.fillStyle = '#FFFFFF'
+				c.globalAlpha = alphaVal
 
-			var textSize = c.measureText(phrase)
-			var xCoord = (canvas.width / 2) - (textSize.width / 2)
+				// Make a rectangle as big as the canvas
+				c.fillRect(0,0, canvas.width, canvas.height)
 
-			c.fillText (phrase, xCoord, (logo.y + logo.img.height) + 50)
-		}
+				if (alphaVal < 1.0) {
+					setTimeout(function () {
+						fadeToWhite(alphaVal)
+					}, 30)
+				} else {
+					State._current = State.LOADED
+				}
+			}
 
-		window.onload = function () {		
-			showIntro()
+			function showIntro () {
+				var phrase = 'Click or tap the screen to start the game'
+
+				// Clear the canvas 
+				c.clearRect(0,0, canvas.width, canvas.height)
+
+				// Make a nice blue gradient
+				var grd = c.createLinearGradient(0, canvas.height, canvas.width, 0)
+				grd.addColorStop(0, '#ceefff')
+				grd.addColorStop(1, '#52bcff')
+
+				c.fillStyle = grd
+				c.fillRect(0,0, canvas.width, canvas.height)
+
+				// Store the original width value so that we can keep 
+				// the same width/height ratio later
+				var originalWidth = logoImage.width
+
+				// Compute the new width and height values
+				logoImage.width = Math.round((50 * document.body.clientWidth) / 100)
+				logoImage.height = Math.round((logoImage.width * logoImage.height) / originalWidth)
+
+				// Create an small utility object
+				var logo = {
+					img: logoImage,
+					x: (canvas.width / 2) - (logoImage.width / 2),
+					y: (canvas.height / 2) - (logoImage.height / 2)
+				}
+
+				// Present the image
+				c.drawImage(logo.img, logo.x, logo.y, logo.img.width, logo.img.height)
+
+				// Change the color to black
+				c.fillStyle = '#000000'
+				c.font = 'bold 16px Arial, sans-serif'
+
+				var textSize = c.measureText(phrase)
+				var xCoord = (canvas.width / 2) - (textSize.width / 2)
+
+				c.fillText (phrase, xCoord, (logo.y + logo.img.height) + 50)
+			}
 		}
 	</script>
 
