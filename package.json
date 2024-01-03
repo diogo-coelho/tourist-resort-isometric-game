@@ -1,0 +1,19 @@
+{
+  "name": "tourist-resort-isometric-game",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diogo-coelho/tourist-resort-isometric-game.git"
+  },
+  "author": "Diogo Coelho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diogo-coelho/tourist-resort-isometric-game/issues"
+  },
+  "homepage": "https://github.com/diogo-coelho/tourist-resort-isometric-game#readme"
+}
