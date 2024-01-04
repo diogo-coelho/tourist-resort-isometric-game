@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/diogo-coelho/tourist-resort-isometric-game/issues"
   },
-  "homepage": "https://github.com/diogo-coelho/tourist-resort-isometric-game#readme"
+  "homepage": "https://github.com/diogo-coelho/tourist-resort-isometric-game#readme",
+  "devDependencies": {
+    "express": "^4.18.2"
+  }
 }
