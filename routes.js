@@ -62,4 +62,8 @@ module.exports = app => {
 	app.get('/gui', (req, res) => {
 		res.sendFile(__dirname + '/examples/gui.html')
 	})
+
+	app.get('/astar', (req, res) => {
+		res.sendFile(__dirname + '/examples/astar.html')
+	})
 }
