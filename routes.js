@@ -58,4 +58,8 @@ module.exports = app => {
 	app.get('/building-location-tracking', (req, res) => {
 		res.sendFile(__dirname + '/examples/building-location-tracking.html')
 	})
+
+	app.get('/gui', (req, res) => {
+		res.sendFile(__dirname + '/examples/gui.html')
+	})
 }
